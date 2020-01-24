@@ -13,4 +13,4 @@ def search(dirname) :
         print (full_filename)
         # print("Hello world")
 
-search("c:/")
+search("/Users/markb./")

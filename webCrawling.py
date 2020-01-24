@@ -1,5 +1,6 @@
+# -*- coding: utf-8 -*-
 # web crawling 테스트
-# 아래 url이 유효하지 않음. 
+# 아래 url이 유효하지 않음.
 
 import requests
 from bs4 import BeautifulSoup
