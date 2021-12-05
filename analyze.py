@@ -4,11 +4,9 @@
 # read 한 값을 mysql에 저장하도록 개발.
 # 또는 인터넷에서 회차별 당처번호를 웹크롤링 하도록 개발 --> 이건 추후
 # 이제 db와 tensorflow를 활용하여 분석하고 추천번호를 생성하도록 개발
+# import MySQLdb
+# db = MySQLdb.connect(host="localhost",user="bkh",passwd="1234!",db="mydb")
 
-import MySQLdb
+import PyMySQL
 
-db = MySQLdb.connect(host="localhost",user="bkh",passwd="1234!",db="mydb")
-#db = MySQLdb.connect(host="localhost",user="bkh",passwd="1234!",db="mydb")
-
-
-aaa
+db = pymysql.connect(host="localhost",user="bkh",passwd="Kcs@1756!",db="test")
