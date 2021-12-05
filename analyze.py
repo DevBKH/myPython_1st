@@ -11,7 +11,7 @@
 #             db connect 문제 해결 : markb.의 비밀번호 변경함
 # 2021.12.6 : 맥 local의 mariadb에 t_test 테이블을 생성하고 
 #             여기에 6개의 랜덤번호를 insert하는 기능을 개발해 보기로 함
-# 
+# ===========================================================================
 
 import random
 import pymysql as pymysql
@@ -23,20 +23,21 @@ myRandom = random
 myList = []
 chkVal = 0
 
+# 테이블에서 가장 마지막 데이터를 읽어와서 pk값 세팅
+select_sql = """select lot_no + 1
+                  from t_test 
+                 order by lot_no desc
+                 limit 1"""
+curs.execute(select_sql)
+result = curs.fetchone()
+ 
+myList.append(result)
+
 for i in range(0,6) :
-    if i == 0 :
-        myList.append(1)
     myList.append(myRandom.randint(0,45))
+print(myList)
 
 sql = "insert into t_test(lot_no, 1st_no, 2nd_no, 3rd_no, 4th_no, 5th_no, 6th_no) values (%s,%s,%s,%s,%s,%s,%s)"
 
-print(myList)
-print (sql)
-
 curs.execute(sql, myList)
 db.commit()
-
-select_sql = "select * from t_test"
-curs.execute(select_sql)
-result = curs.fetchall()
-print(result)
