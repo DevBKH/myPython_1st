@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # web crawling 테스트
 # 아래 url이 유효하지 않음.
+#    basic_url = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin&drwNo="
 
 import requests
 from bs4 import BeautifulSoup
 
 def main() :
-    basic_url = "https://www.nlotto.co.kr/lotto645Confirm.do?method=byWin&drwNo="
+    basic_url = "https://dhlottery.co.kr/common.do?method=main"
     for i in range(1, 707) :
         resp = requests.get(basic_url+str(i))
         soup = BeautifulSoup(resp.text, "lxml")
