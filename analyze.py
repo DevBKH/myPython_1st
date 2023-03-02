@@ -16,8 +16,12 @@
 import random
 import pymysql as pymysql
 
-db = pymysql.connect(host="localhost",user="markb.",passwd="Kcs@1756!",db="test")
-curs = db.cursor()
+try:
+    db = pymysql.connect(host="localhost",user="markb.",passwd="Kcs@1756!",db="test")
+    curs = db.cursor()
+except pymysql.Error as e:
+    print(f"Error connecting to database: {e}")
+    exit()
 
 myRandom = random
 myList = []
@@ -28,16 +32,29 @@ select_sql = """select lot_no + 1
                   from t_test 
                  order by lot_no desc
                  limit 1"""
-curs.execute(select_sql)
-result = curs.fetchone()
- 
-myList.append(result)
+try:
+    curs.execute(select_sql)
+    result = curs.fetchone()
+    myList.append(result)
+except pymysql.Error as e:
+    print(f"Error executing query: {e}")
+    db.close()
+    exit()
 
 for i in range(0,6) :
     myList.append(myRandom.randint(0,45))
 print(myList)
 
-sql = "insert into t_test(lot_no, 1st_no, 2nd_no, 3rd_no, 4th_no, 5th_no, 6th_no) values (%s,%s,%s,%s,%s,%s,%s)"
+sql = """insert into t_test(lot_no, 1st_no, 2nd_no, 3rd_no, 4th_no, 5th_no, 6th_no) 
+         values (%s,%s,%s,%s,%s,%s,%s)"""
 
-curs.execute(sql, myList)
-db.commit()
+try:
+    curs.execute(sql, myList)
+    db.commit()
+    print("Data inserted successfully!")
+except pymysql.Error as e:
+    print(f"Error executing query: {e}")
+    db.rollback()
+
+# Close the database connection
+db.close()
